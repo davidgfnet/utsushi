@@ -1,0 +1,18 @@
+#! /bin/sh
+#  clone-dat -- clone a device data file for a renamed model
+
+##  A recipe to clone data files from an existing file.  Note that the
+##  $$src and $$dst variables need to have the same length for cloning
+##  to work.  Clones will have their firmware version numbers wiped to
+##  indicate the fact that they aren't based on any hardware out there
+##  in the wild.
+
+src=`echo "$1" | sed 's,^.*/,,; s,\.dat$,,'`
+dst=`echo "$2" | sed 's,^.*/,,; s,\.dat$,,'`
+
+sed -e "s,\(#PRDh...\)$src,\1$dst," \
+    -e 's,\([^#]\)IPL ....,\1IPL     ,' \
+    -e 's,\([^#]\)ADF ....,\1ADF     ,' \
+    -e 's,\([^#]\)FB  ....,\1FB      ,' \
+    -e 's,\([^#]\)TPU ....,\1TPU     ,' \
+    "$1" > "$2"

@@ -255,21 +255,10 @@ driverdata_DATA += data/WF-6590.dat
 
 EXTRA_DIST += $(driverdata_DATA)
 
-##  A recipe to clone data files from an existing file.  Note that the
-##  $$src and $$dst variables need to have the same length for cloning
-##  to work.  Clones will have their firmware version numbers wiped to
-##  indicate the fact that they aren't based on any hardware out there
-##  in the wild.
+##  A recipe to clone data files from an existing file (see clone-dat).
 
-clone_dat = \
-	src=`echo $< | sed 's,^.*/,,; s,\.dat$$,,'`; \
-	dst=`echo $@ | sed 's,^.*/,,; s,\.dat$$,,'`; \
-	sed -e "s,\(\#PRDh...\)$$src,\1$$dst," \
-	    -e 's,\([^\#]\)IPL ....,\1IPL     ,' \
-	    -e 's,\([^\#]\)ADF ....,\1ADF     ,' \
-	    -e 's,\([^\#]\)FB  ....,\1FB      ,' \
-	    -e 's,\([^\#]\)TPU ....,\1TPU     ,' \
-	    $< > $@
+EXTRA_DIST += clone-dat
+clone_dat = $(SHELL) $(srcdir)/clone-dat $< $@
 
 $(srcdir)/data/DS-310.dat: $(srcdir)/data/DS-360W.dat
 	sed -e 's,DS-360W,DS-310 ,' $< > $@
