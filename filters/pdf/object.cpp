@@ -74,14 +74,6 @@ object::operator>> (std::ostream& os) const
 }
 
 bool
-object::operator== (object& that) const
-{
-  // FIXME: what if one or both instances have not gotten an object
-  //        number yet?
-  return _obj_num == that._obj_num;
-}
-
-bool
 object::is_direct () const
 {
   return (0 == _obj_num);

@@ -64,13 +64,6 @@ public:
 
   virtual void operator>> (std::ostream& os) const;
 
-  /*! Compare the contents of two _pdf_::primitives.
-   *
-   * Only the object contents are compared, the object number of the
-   * two objects may differ.
-   */
-  virtual bool operator== (const primitive& other) const;
-
   void operator= (const primitive& that);
 };
 

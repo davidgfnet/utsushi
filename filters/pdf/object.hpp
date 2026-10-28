@@ -82,15 +82,6 @@ public:
    */
   virtual void operator>> (std::ostream& os) const;
 
-  /*! Compare the contents of two _pdf_::objects.
-   *
-   * Only the object contents are compared, the object number of the two
-   * objects can be different.
-   *
-   * In the case of _pdf_::object, the object numbers are compared.
-   */
-  virtual bool operator== (object& that) const;
-
   /*! Reset the current object number to recycle them for new documents
    */
   static void reset_object_numbers ();

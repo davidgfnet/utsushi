@@ -43,12 +43,6 @@ primitive::operator>> (std::ostream& os) const
   os << _str;
 }
 
-bool
-primitive::operator== (const primitive& that) const
-{
-  return _str == that._str;
-}
-
 // FIXME: doesn't do the default assignment just what we want?
 void
 primitive::operator= (const primitive& that)
