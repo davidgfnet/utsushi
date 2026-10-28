@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE (setter_deep_copy)
 
   BOOST_CHECK_EQUAL_COLLECTIONS (cmd1.cmd_, cmd1.cmd_ + 2,
                                  cmd2.cmd_, cmd2.cmd_ + 2);
-  BOOST_CHECK (cmd1.dat_ != cmd2.dat_);
+  BOOST_CHECK (+cmd1.dat_ != +cmd2.dat_);
   BOOST_CHECK_EQUAL_COLLECTIONS (cmd1.dat_, cmd1.dat_ + setter_data_size,
                                  cmd2.dat_, cmd2.dat_ + setter_data_size);
 
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE (setter_assignment)
 
   BOOST_CHECK_EQUAL_COLLECTIONS (cmd1.cmd_, cmd1.cmd_ + 2,
                                  cmd2.cmd_, cmd2.cmd_ + 2);
-  BOOST_CHECK (cmd1.dat_ != cmd2.dat_);
+  BOOST_CHECK (+cmd1.dat_ != +cmd2.dat_);
   BOOST_CHECK_EQUAL_COLLECTIONS (cmd1.dat_, cmd1.dat_ + setter_data_size,
                                  cmd2.dat_, cmd2.dat_ + setter_data_size);
 
@@ -112,7 +112,7 @@ BOOST_AUTO_TEST_CASE (dither_deep_copy)
 
   BOOST_CHECK_EQUAL_COLLECTIONS (cmd1.cmd_, cmd1.cmd_ + 2,
                                  cmd2.cmd_, cmd2.cmd_ + 2);
-  BOOST_CHECK (cmd1.dat_ != cmd2.dat_);
+  BOOST_CHECK (+cmd1.dat_ != +cmd2.dat_);
   BOOST_CHECK_EQUAL_COLLECTIONS (cmd1.dat_, cmd1.dat_ + cmd1.dat_size (),
                                  cmd2.dat_, cmd2.dat_ + cmd2.dat_size ());
 
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_CASE (dither_assignment)
 
   BOOST_CHECK_EQUAL_COLLECTIONS (cmd1.cmd_, cmd1.cmd_ + 2,
                                  cmd2.cmd_, cmd2.cmd_ + 2);
-  BOOST_CHECK (cmd1.dat_ != cmd2.dat_);
+  BOOST_CHECK (+cmd1.dat_ != +cmd2.dat_);
   BOOST_CHECK_EQUAL_COLLECTIONS (cmd1.dat_, cmd1.dat_ + cmd1.dat_size (),
                                  cmd2.dat_, cmd2.dat_ + cmd2.dat_size ());
 

@@ -38,8 +38,12 @@ check_PROGRAMS += udev-rules.utr
 
 AM_CPPFLAGS += -DESCI_GRAMMAR_TRACE=1
 AM_LDFLAGS  += $(BOOST_LDFLAGS)
+##  libutsushi needs the connexion plugins provided by the program
+AM_LDFLAGS  += -Wl,--no-as-needed
 
 LDADD = ../libdrv-esci.la $(LIBUTSUSHI_LIBS)
+LDADD += ../../../connexions/libcnx-usb.la
+LDADD += ../../../connexions/libcnx-hexdump.la
 grammar_formats_utr_LDADD    = $(LDADD) $(BOOST_FILESYSTEM_LIB)
 grammar_utr_LDADD            = $(LDADD) $(BOOST_FILESYSTEM_LIB)
 udev_rules_utr_LDADD         = $(BOOST_UNIT_TEST_FRAMEWORK_LIB)
@@ -47,8 +51,6 @@ udev_rules_utr_LDADD        += $(BOOST_FILESYSTEM_LIB)
 udev_rules_utr_LDADD        += $(BOOST_REGEX_LIB)
 ## FIXME: remove when connexions are turned into proper plugins
 setter_utr_LDADD             = $(LDADD)
-setter_utr_LDADD            += ../../../connexions/libcnx-usb.la
-setter_utr_LDADD            += ../../../connexions/libcnx-hexdump.la
 grammar_formats_utr_LDADD   += ../../../connexions/libcnx-usb.la
 grammar_formats_utr_LDADD   += ../../../connexions/libcnx-hexdump.la
 grammar_utr_LDADD           += ../../../connexions/libcnx-usb.la

@@ -60,25 +60,31 @@ struct packet
 };
 
 void
+io_check (ssize_t rv)
+{
+  if (0 > rv) exit (EXIT_FAILURE);
+}
+
+void
 packet::recv (int sock)
 {
-  read (sock, reinterpret_cast< octet * > (this), sizeof (ipc::header));
+  io_check (read (sock, reinterpret_cast< octet * > (this), sizeof (ipc::header)));
 
   if (0 < this->size ())
     {
       delete [] payload;
       payload = new octet[this->size ()];
-      read (sock, payload, this->size ());
+      io_check (read (sock, payload, this->size ()));
     }
 }
 
 void
 packet::send (int sock)
 {
-  write (sock, reinterpret_cast< octet * > (this), sizeof (ipc::header));
+  io_check (write (sock, reinterpret_cast< octet * > (this), sizeof (ipc::header)));
 
   if (0 < this->size ())
-    write (sock, payload, this->size ());
+    io_check (write (sock, payload, this->size ()));
 }
 
 void
