@@ -106,7 +106,7 @@ scanner::scanner (const kv_list& kvs, const bool debug)
 
           constraint::ptr cp ((*sp->options ())[key].constraint ());
 
-          if (cp && val == (*cp) (val))
+          if (cp && value (val) == (*cp) (val))
             {
               (*sp->options ())[key] = val;
             }
@@ -114,7 +114,7 @@ scanner::scanner (const kv_list& kvs, const bool debug)
             {                   // expand shorthand
               if (val == "adf") val = "ADF";
               if (val == "fb")  val = "Document Table";
-              if (!cp || val == (*cp) (val))
+              if (!cp || value (val) == (*cp) (val))
                 {
                   (*sp->options ())[key] = val;
                 }

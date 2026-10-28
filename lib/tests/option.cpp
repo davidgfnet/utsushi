@@ -157,9 +157,9 @@ BOOST_FIXTURE_TEST_CASE_TEMPLATE (access_and_assignment, T, value::types,
   //  to resolve type conversion ambiguities.
 
   BOOST_CHECK_EQUAL (t, t2);
-  BOOST_CHECK_EQUAL (t, value (m[k2]));
+  BOOST_CHECK_EQUAL (value (t), value (m[k2]));
   BOOST_CHECK_NE    (t, t1);
-  BOOST_CHECK_NE    (t, value (m[k1]));
+  BOOST_CHECK_NE    (value (t), value (m[k1]));
 
   // Swap option values by direct assignment of a bounded type object
   // as well as through explicit intermediate conversion to a value.
@@ -170,9 +170,9 @@ BOOST_FIXTURE_TEST_CASE_TEMPLATE (access_and_assignment, T, value::types,
   // Flip LHS and RHS in the equality comparisons.  Note that casting
   // to a value object is no longer needed in this case.
 
-  BOOST_CHECK_EQUAL (t1   , v);
+  BOOST_CHECK_EQUAL (value (t1), v);
   BOOST_CHECK_NE    (m[k1], v);
-  BOOST_CHECK_NE    (t2   , v);
+  BOOST_CHECK_NE    (value (t2), v);
   BOOST_CHECK_EQUAL (m[k2], v);
 
   BOOST_CHECK_EQUAL (t2   , t);

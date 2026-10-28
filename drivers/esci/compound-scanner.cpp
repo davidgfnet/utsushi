@@ -1340,7 +1340,7 @@ compound_scanner::set_up_scan_area ()
     }
 
   if (val_.count ("doc-source")
-      && string ("ADF") == val_["doc-source"])
+      && value ("ADF") == val_["doc-source"])
     {
       if (val_.count ("border-fill"))
         {
