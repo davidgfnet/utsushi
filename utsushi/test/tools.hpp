@@ -49,9 +49,7 @@
 
 //! Readability macro for change_test_case_name() and friends
 #define is_invalid_identifier_char                      \
-  std::bind2nd                                          \
-  (std::not2 (std::ptr_fun (std::isalnum< char >)),     \
-   std::locale::classic ())                             \
+  [] (char c) { return !std::isalnum (c, std::locale::classic ()); } \
     /**/
 
 namespace utsushi {
