@@ -603,6 +603,7 @@ dialog::on_scan (void)
         bilevel = ((*opts_)["device/image-type"] == "Monochrome");
     }
 
+    if (magick)
     {
       toggle sw_color_correction = false;
       if (opts_->count ("device/sw-color-correction"))
@@ -662,11 +663,18 @@ dialog::on_scan (void)
       }
 
     if (skip_blank)  str->push (blank_skip);
-    str->push (make_shared< pnm > ());
-    if (autocrop)    str->push (autocrop);
-    if (deskew)      str->push (deskew);
-    if (reorient)    str->push (reorient);
-    if (magick)      str->push (magick);
+    if (magick)
+      {
+        str->push (make_shared< pnm > ());
+        if (autocrop)    str->push (autocrop);
+        if (deskew)      str->push (deskew);
+        if (reorient)    str->push (reorient);
+        str->push (magick);
+      }
+    else if ("PNM" == fmt)
+      {
+        str->push (make_shared< pnm > ());
+      }
 
     if ("PDF" == fmt)
       {

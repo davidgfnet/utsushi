@@ -509,7 +509,7 @@ handle::handle(const scanner::info& info)
      attributes ())
     ;
 
-  if (HAVE_MAGICK_PP
+  if (HAVE_MAGICK && HAVE_MAGICK_PP
       && idev_->options ()->count ("lo-threshold")
       && idev_->options ()->count ("hi-threshold"))
     {
@@ -1159,7 +1159,7 @@ handle::marker ()
       if (force_extent) force_extent = (width > 0 || height > 0);
 
       filter::ptr autocrop;
-      if (HAVE_MAGICK_PP
+      if (HAVE_MAGICK && HAVE_MAGICK_PP
           && emulating_automatic_scan_area_
           && do_automatic_scan_area_)
         {
@@ -1182,7 +1182,7 @@ handle::marker ()
         }
 
       filter::ptr deskew;
-      if (HAVE_MAGICK_PP
+      if (HAVE_MAGICK && HAVE_MAGICK_PP
           && !autocrop && opt_.count (filter_prefix + "-deskew"))
         {
           toggle t = value ((opt_)[filter_prefix + "-deskew"]);
@@ -1202,7 +1202,7 @@ handle::marker ()
           (*deskew->options ())["hi-threshold"] = value (opt_[option_prefix / "hi-threshold"]);
         }
 
-      if (HAVE_MAGICK_PP
+      if (HAVE_MAGICK && HAVE_MAGICK_PP
           && opt_.count (option_prefix / "long-paper-mode"))
         {
           string s = value (opt_[option_prefix / "doc-source"]);
@@ -1281,6 +1281,7 @@ handle::marker ()
           // keep magick filter's default format to generate image/x-raster
       }
 
+      if (magick)
       {
         toggle sw_color_correction = false;
         if (opt_.count (option_prefix / "sw-color-correction"))
@@ -1339,11 +1340,14 @@ handle::marker ()
         }
 
       if (skip_blank)  str->push (blank_skip);
-      str->push (make_shared< pnm > ());
-      if (autocrop)    str->push (autocrop);
-      if (deskew)      str->push (deskew);
-      if (reorient)    str->push (reorient);
-      if (magick)      str->push (magick);
+      if (magick)
+        {
+          str->push (make_shared< pnm > ());
+          if (autocrop)    str->push (autocrop);
+          if (deskew)      str->push (deskew);
+          if (reorient)    str->push (reorient);
+          str->push (magick);
+        }
 
       iocache::ptr cache (make_shared< iocache > ());
       str->push (odevice::ptr (cache));
