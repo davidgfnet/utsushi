@@ -1079,6 +1079,7 @@ main (int argc, char *argv[])
             (*magick->options ())["image-format"] = fmt;
       }
 
+      if (magick)
       {
         toggle sw_color_correction = false;
         if (om.count ("sw-color-correction"))
@@ -1139,11 +1140,18 @@ main (int argc, char *argv[])
             }
 
           if (skip_blank)  str->push (blank_skip);
-          str->push (make_shared< pnm > ());
-          if (autocrop)    str->push (autocrop);
-          if (deskew)      str->push (deskew);
-          if (reorient)    str->push (reorient);
-          if (magick)      str->push (magick);
+          if (magick)
+            {
+              str->push (make_shared< pnm > ());
+              if (autocrop)    str->push (autocrop);
+              if (deskew)      str->push (deskew);
+              if (reorient)    str->push (reorient);
+              str->push (magick);
+            }
+          else if ("PNM" == fmt)
+            {
+              str->push (make_shared< pnm > ());
+            }
 
           if ("PDF" == fmt)
             {
